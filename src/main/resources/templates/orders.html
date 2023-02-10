@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head th:replace="layout.html :: head">
+    <meta charset="UTF-8">
+    <title>HassWare | Módulo de Pedidos</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css"
+          integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+</head>
+<body>
+
+<header th:replace="layout.html :: header"></header>
+
+<div class="py-4 ml-5 mr-5">
+    <div class="card bg-light">
+        <div class="card-header" style="font-weight: bold; font-size: 20px" th:text="${title}"></div>
+        <div class="card-body">
+            <h4 class="card-title">
+                <a th:href="@{/orderform}" class="btn btn-primary" style="background-color: #057A55; border-color: #057A55">Agregar Pedido</a>
+                <a sec:authorize="hasRole('ADMIN')" th:href="@{/order_pdfexport}" class="btn btn-outline-danger"> Exportar a PDF</a>
+                <a sec:authorize="hasRole('ADMIN')" th:href="@{/order_excelexport}" class="btn btn-outline-success">Exportar a Excel</a>
+            </h4>
+
+            <!--filter for the table-->
+            <div class="form-row" style="display: flex; flex-direction: row; justify-content: flex-end; align-items: center; margin-bottom: 15px">
+                <label for="myInput" style="margin-right: 10px">Filtrar registros de la tabla:</label>
+                <input id="myInput" class="form-control" style="width: 150px"  type="text" placeholder="">
+            </div>
+
+            <!--Actual table-->
+            <table class="table table-striped">
+                <thead>
+                <tr>
+                    <th>Fecha</th>
+                    <th>Cliente</th>
+                    <th>Producto</th>
+                    <th>Cantidad (Cajas)</th>
+                    <th>Costo Total</th>
+                    <th>Encargado</th>
+                    <th sec:authorize="hasRole('ADMIN')"></th>
+                    <th sec:authorize="hasRole('ADMIN')"></th>
+
+                </tr>
+                </thead>
+                <tbody id="myTable">
+                <tr th:each="order : ${orders}">
+                    <td th:text="${order.date}"></td>
+                    <td th:text="${order.customer}"></td>
+                    <td th:text="${order.product}"></td>
+                    <td th:text="${order.quantity}"></td>
+                    <td th:text="${order.total}"></td>
+                    <td th:text="${order.createdby}"></td>
+                    <td sec:authorize="hasRole('ADMIN')"><a class="btn btn-warning btn-sm" style="background-color:  #057A55; border-color:  #057A55; color: white" th:href="@{/orderform/} + ${order.idorder}">Editar</a></td>
+                    <td sec:authorize="hasRole('ADMIN')"><a class="btn btn-danger btn-sm" th:href="@{/deleteorder/} + ${order.idorder}" onclick="return confirm('¿Estás seguro de eliminar este registro?');">Eliminar</a></td>
+                </tr>
+                </tbody>
+            </table>
+            <nav th:replace="paginator-nav.html :: paginator"></nav>
+        </div>
+    </div>
+</div>
+
+<footer th:replace="layout.html :: footer"></footer>
+
+</body>
+</html>

@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head th:replace="layout.html :: head">
+    <meta charset="UTF-8">
+    <title>HassWare | Página de Inicio</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css"
+          integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+</head>
+<body>
+
+<!--index page header-->
+<header>
+    <nav class="navbar navbar-expand-lg navbar-light" style="background-color: #057A55">
+        <img width="60px" height="50px" th:src="@{/img/whitelogo.png}">
+        <a class="navbar-brand" style="font-weight: bold; color: white">HassWare</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup"
+                aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse">
+            <a class="nav-link" style="color: white" href="docs.html">Documentación</a>
+            <ul class="navbar-nav" id="navbaruser">
+                <li class="nav-item"><a class="nav-link" style="color: white">Bienvenido,
+                    [[${#httpServletRequest.remoteUser}]]</a></li>
+                <form class="d-flex" th:action="@{/logout}" method="post">
+                    <input class="btn btn-light" type="submit" value="Salir"/>
+                </form>
+            </ul>
+        </div>
+    </nav>
+</header>
+
+<section style="margin-top: 165px;">
+    <div class="container" style="margin-bottom: 90px;margin-top: -90px;">
+        <h2 style="text-align: center">Panel de Inicio</h2>
+        <p style="text-align: center">Selecciona el módulo al que quieres acceder.</p>
+    </div>
+    <div class="container">
+
+        <!--Module one link-->
+        <div class="row">
+            <div class="col-sm-6" sec:authorize="hasAnyRole('ADMIN','SALES')">
+                <div class="card" style="width: 500px; background-color: #f8f9fa">
+                    <div class="card-body" with>
+                        <h4 class="card-title">Módulo de Pedidos</h4>
+                        <p class="card-text">Permite realizar la gestión de los pedidos realizados por los clientes.</p>
+                        <a th:href="@{/orders}" class="btn btn-light"
+                           style="background-color: #057A55; border-color: #057A55; color: white">Ir a Módulo</a>
+                    </div>
+                </div>
+            </div>
+
+            <!--Module two link-->
+            <div class="col-sm-6" sec:authorize="hasAnyRole('ADMIN','STORAGE')">
+                <div class="card" style="width: 500px; background-color: #f8f9fa">
+                    <div class="card-body">
+                        <h4 class="card-title">Módulo de Productos</h4>
+                        <p class="card-text">Permite llevar el control de las existencias dentro del inventario de
+                            productos.</p>
+                        <a th:href="@{/products}" class="btn btn-light"
+                           style="background-color: #057A55; border-color: #057A55; color: white">Ir a Módulo</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section><
+
+</body>
+</html>

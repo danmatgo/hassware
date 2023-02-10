@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head th:replace="layout.html :: head">
+    <meta charset="UTF-8">
+    <title>HassWare | Formulario de Pedidos</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css"
+          integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+</head>
+<body style="background-color: #f8f9fa">
+
+<header th:replace="layout.html :: header"></header>
+
+<br>
+<br>
+
+<!--Actual form-->
+<div class="container">
+    <div class="row">
+        <div class="col-lg-5 col-md-5 col-sm-5 container justify-content-center card">
+            <div style="margin-top: 15px">
+                <h2 class="text-center" th:text="${title}"></h2>
+            </div>
+            <div class="card-body">
+                <form th:action="@{/orderform}" th:object="${order}" method="post" class="needs-validation" novalidate>
+                    <input type="hidden" th:field="*{idorder}" th:value="${order.idorder}"/>
+
+                    <div class="form-group">
+                        <label>Fecha: </label>
+                        <input type="date" th:field="*{date}" class="form-control"
+                               th:errorclass="'form-control alert-danger'" required/>
+                        <div class="invalid-feedback">Por favor ingresa una fecha.</div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Cliente: </label>
+                        <input type="text" th:field="*{customer}" class="form-control"
+                               th:errorclass="'form-control alert-danger'" required/>
+                        <div class="invalid-feedback">Por favor ingresa el nombre del cliente.</div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Producto: </label>
+                        <select class="form-control" th:field="*{product}" required>
+                            <option value="">--Selecciona un producto--</option>
+                            <option value="Aguacate Hass Calibre 32">Aguacate Hass Calibre 32</option>
+                            <option value="Aguacate Hass Calibre 34">Aguacate Hass Calibre 34</option>
+                            <option value="Aguacate Hass Calibre 36">Aguacate Hass Calibre 36</option>
+                            <option value="Aguacate Hass Calibre 40">Aguacate Hass Calibre 40</option>
+                            <option value="Aguacate Variedad Lorena">Aguacate Variedad Lorena</option>
+                            <option value="Aguacare Variedad Trinidad">Aguacare Variedad Trinidad</option>
+                            <option value="Aguacarte Variedad Fuerte">Aguacarte Variedad Fuerte</option>
+                            <option value="Aguacate Variedad Santana">Aguacate Variedad Santana</option>
+                            <option value="Aguacare Variedad Booth-8">Aguacare Variedad Booth-8</option>
+                        </select>
+                        <div class="invalid-feedback">Por favor selecciona un product de la lista.</div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Cantidad (Cajas): </label>
+                        <input type="number" th:field="*{quantity}" class="form-control"
+                               th:errorclass="'form-control alert-danger'" min="1" max="1000" required/>
+                        <div class="invalid-feedback">Por favor ingresa la cantidad de cajas.</div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Costo Total: </label>
+                        <input type="number" th:field="*{total}" class="form-control"
+                               th:errorclass="'form-control alert-danger'" placeholder="$" min="100000" max="1000000000"
+                               step="100000" required/>
+                        <div class="invalid-feedback">Por favor ingresa el costo total.</div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Encargado del order: </label>
+                        <select class="form-control" th:field="*{createdby}" required>
+                            <option value="">--Selecciona un persona--</option>
+                            <option value="Administrador">Administrador</option>
+                            <option value="Andres Gomez">Andrés Gómez</option>
+                        </select>
+                        <div class="invalid-feedback">Por favor indica quién es el encargado del order.</div>
+                    </div>
+
+                    <div class="box-footer">
+                        <input type="submit" value="Guardar" class="btn btn-primary"
+                               style="background-color: #057A55; border-color: #057A55">
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<br>
+<br>
+
+<footer th:replace="layout.html :: footer"></footer>
+
+</body>
+</html>

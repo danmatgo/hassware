@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head th:replace="layout.html :: head">
+    <meta charset="UTF-8">
+    <title>HassWare | Formulario de Productos</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css"
+          integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+</head>
+<body style="background-color: #f8f9fa">
+
+<header th:replace="layout.html :: header"></header>
+
+<br>
+<br>
+
+<!--Actual form-->
+<div class="container">
+    <div class="row">
+        <div class="col-lg-5 col-md-5 col-sm-5 container justify-content-center card">
+            <div style="margin-top: 15px">
+                <h2 class="text-center" th:text="${title}"></h2>
+            </div>
+            <div class="card-body">
+                <form th:action="@{/productform}" th:object="${product}" method="post" class="needs-validation" novalidate>
+                    <input type="hidden" th:field="*{idproduct}" th:value="${product.idproduct}"/>
+
+                    <div class="form-group">
+                        <label>Nombre: </label>
+                        <input type="text" th:field="*{name}" class="form-control"
+                               th:errorclass="'form-control alert-danger'" required/>
+
+                        <div class="invalid-feedback">Por favor ingresa el nombre del product.</div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Existencias (Cajas): </label>
+                        <input type="number" th:field="*{stock}" class="form-control"
+                               th:errorclass="'form-control alert-danger'" min="1" max="1000" required/>
+                        <div class="invalid-feedback">Por favor ingresa la cantidad de existencias.</div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Precio: </label>
+                        <input type="number" th:field="*{price}" class="form-control"
+                               th:errorclass="'form-control alert-danger'" placeholder="$" min="100000" max="1000000" step="1000" required/>
+                        <div class="invalid-feedback">Por favor ingresa el precio del product.</div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Gestionado por: </label>
+                        <select class="form-control" th:field="*{managedby}" required>
+                            <option value="">--Selecciona un persona--</option>
+                            <option value="Administrador">Administrador</option>
+                            <option value="Juan Rojas">Juan Rojas</option>
+                        </select>
+                        <div class="invalid-feedback">Por favor indica quién gestiona el registro current.</div>
+                    </div>
+
+                    <div class="box-footer">
+                        <input type="submit" value="Guardar" class="btn btn-primary" style="background-color: #057A55; border-color: #057A55">
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<br>
+<br>
+
+<footer th:replace="layout.html :: footer"></footer>
+
+</body>
+</html>
