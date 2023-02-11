@@ -18,9 +18,9 @@
 
 
 ## Setup
-1. Restore the MySQL database with the backup provided in the reporsitory folder "sql_backup".
+1. Restore the MySQL database with the backup provided in the folder "sql_backup".
 2. Initialize the project in an IDE like IntelliJ IDEA or NetBeans through the pom.xml file and wait until all the plugins and dependencies are downloaded.
-3. Run the application.
+3. Run the application, this will deploy it in the url: "http://localhost:8080".
 
 ## Acknowledgements
 This project was inspired and partly based on [this tutorial](https://www.youtube.com/watch?v=H8lbgOEdZ9E&t=2269s).
