@@ -15,7 +15,7 @@ import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 @EnableWebSecurity
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
-    // Users and passwords definition ( in memory)
+    // Users and passwords definition (in memory)
     @Override
     @Bean
     protected UserDetailsService userDetailsService() {
